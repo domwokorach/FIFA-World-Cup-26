@@ -109,8 +109,8 @@ jobs:
           git commit -m "data: scheduled update $(date -u +%F)"
           # main may have moved while the update ran — rebase and retry up to 3 times
           for attempt in 1 2 3; do
-            git pull --rebase origin main || { echo "rebase failed (attempt $attempt)"; sleep 10; continue; }
-            if git push origin main; then
+            git pull --rebase origin master || { echo "rebase failed (attempt $attempt)"; sleep 10; continue; }
+            if git push origin master; then
               exit 0
             fi
             echo "push rejected (attempt $attempt), retrying"
@@ -135,7 +135,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main # pick up the data commit pushed by the update job
+          ref: master # pick up the data commit pushed by the update job
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: '1.3.10'
@@ -165,7 +165,7 @@ jobs:
           # fresh statuses (this run's update job just committed them): a match
           # that is already finished stops demanding cadence — the chain dies
           # one step after full time instead of riding out the 3h45 hard cap
-          curl -sf "https://raw.githubusercontent.com/$GITHUB_REPOSITORY/main/public/data/matches.json" -o /tmp/matches.json \
+          curl -sf "https://raw.githubusercontent.com/$GITHUB_REPOSITORY/master/public/data/matches.json" -o /tmp/matches.json \
             || cp public/data/matches.json /tmp/matches.json
           RUN=$(node -e "
             const {matches}=require('/tmp/matches.json');
