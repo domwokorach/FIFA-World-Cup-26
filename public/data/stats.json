@@ -25,6 +25,14 @@
    "ownGoals": 0
   },
   {
+   "id": "369419",
+   "name": "Harry KANE",
+   "code": "ENG",
+   "no": 9,
+   "goals": 5,
+   "ownGoals": 0
+  },
+  {
    "id": "398680",
    "name": "Ousmane DEMBELE",
    "code": "FRA",
@@ -69,14 +77,6 @@
    "name": "Elijah JUST",
    "code": "NZL",
    "no": 11,
-   "goals": 3,
-   "ownGoals": 0
-  },
-  {
-   "id": "369419",
-   "name": "Harry KANE",
-   "code": "ENG",
-   "no": 9,
    "goals": 3,
    "ownGoals": 0
   },
@@ -322,7 +322,7 @@
   }
  ],
  "cards": {
-  "yellow": 200,
+  "yellow": 202,
   "red": 11,
   "players": [
    {
@@ -487,7 +487,7 @@
    }
   ]
  },
- "attAvg": 64923,
+ "attAvg": 64964,
  "biggestWin": {
   "diff": 6,
   "id": "400021464",
@@ -598,10 +598,10 @@
    "JOR": -4,
    "GHA": -3,
    "PAN": -5,
-   "ENG": -2,
+   "ENG": -3,
    "CRO": -2,
    "POR": -4,
-   "COD": -5,
+   "COD": -6,
    "UZB": -4,
    "COL": -4
   }

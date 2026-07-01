@@ -5592,22 +5592,22 @@
    "group": null,
    "date": "2026-07-01T16:00:00Z",
    "venueId": "400098290",
-   "status": "scheduled",
-   "time": "0'",
+   "status": "finished",
+   "time": "97'",
    "home": {
     "code": "ENG",
-    "score": null,
+    "score": 2,
     "pen": null
    },
    "away": {
     "code": "COD",
-    "score": null,
+    "score": 1,
     "pen": null
    },
    "phA": "1L",
    "phB": "3EHIJK",
-   "winner": null,
-   "attendance": null,
+   "winner": "ENG",
+   "attendance": 68239,
    "officials": [
     {
      "id": "361034",
@@ -5744,7 +5744,7 @@
    "date": "2026-07-01T20:00:00Z",
    "venueId": "400216606",
    "status": "scheduled",
-   "time": null,
+   "time": "0'",
    "home": {
     "code": "BEL",
     "score": null,
@@ -6169,7 +6169,11 @@
     "score": null,
     "pen": null
    },
-   "away": null,
+   "away": {
+    "code": "ENG",
+    "score": null,
+    "pen": null
+   },
    "phA": "W79",
    "phB": "W80",
    "winner": null,

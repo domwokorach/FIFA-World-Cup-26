@@ -280,7 +280,7 @@ export default function Bracket() {
   }
 
   return (
-    <div className="bk-page">
+    <div className="bk-page bk-theme-poster">
       <div className="page-head">
         <h1>{t('bracketTitle')}</h1>
       </div>
