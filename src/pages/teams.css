@@ -28,6 +28,13 @@
     border-color 0.15s,
     transform 0.1s;
 }
+.tm-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 .tm-card:hover {
   border-color: var(--border-strong);
   transform: translateY(-1px);
@@ -80,13 +87,13 @@
   cursor: pointer;
 }
 .tm-mode:hover {
-  color: var(--accent-2);
-  border-color: var(--accent-2);
+  color: var(--accent-text);
+  border-color: var(--accent-text);
 }
 .tm-mode.on {
-  color: var(--accent-2);
-  border-color: var(--accent-2);
-  background: color-mix(in srgb, var(--accent-2) 12%, var(--bg-elev));
+  color: var(--accent-text);
+  border-color: var(--accent-text);
+  background: color-mix(in srgb, var(--accent-text) 12%, var(--bg-elev));
 }
 
 .tm-star {

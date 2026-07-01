@@ -276,7 +276,7 @@ export default function Pitch({
   return (
     <svg
       viewBox="0 0 100 164"
-      role="img"
+      role="group"
       aria-label={`${homeName} – ${awayName}`}
       style={{ width: '100%', maxWidth: 460, height: 'auto', display: 'block', margin: '0 auto' }}
     >

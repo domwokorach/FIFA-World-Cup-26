@@ -21,16 +21,18 @@ function TeamCard({ team }: { team: Team }) {
   const favLabel = t(fav ? 'removeFavorite' : 'addFavorite')
   const conf = TEAM_CONFEDERATION[team.code]
   return (
-    <Link to={`/team/${team.code}`} className="card tm-card">
-      <Flag team={team} size={36} />
-      <div className="tm-info">
-        <div className="tm-name">{pick(team.name, team.code)}</div>
-        <div className="tm-meta small muted">
-          {team.ranking !== null && <span className="chip tnum">FIFA #{team.ranking}</span>}
-          {conf && <span className="chip">{conf}</span>}
+    <div className="card tm-card">
+      <Link to={`/team/${team.code}`} className="tm-main">
+        <Flag team={team} size={36} />
+        <div className="tm-info">
+          <div className="tm-name">{pick(team.name, team.code)}</div>
+          <div className="tm-meta small muted">
+            {team.ranking !== null && <span className="chip tnum">FIFA #{team.ranking}</span>}
+            {conf && <span className="chip">{conf}</span>}
+          </div>
+          {team.nickname && <div className="tm-nick">{team.nickname}</div>}
         </div>
-        {team.nickname && <div className="tm-nick">{team.nickname}</div>}
-      </div>
+      </Link>
       <button
         type="button"
         className={`tm-star${fav ? ' on' : ''}`}
@@ -44,7 +46,7 @@ function TeamCard({ team }: { team: Team }) {
       >
         <Icon name={fav ? 'starFill' : 'star'} size={20} />
       </button>
-    </Link>
+    </div>
   )
 }
 

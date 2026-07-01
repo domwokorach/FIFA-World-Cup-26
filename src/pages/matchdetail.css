@@ -510,8 +510,8 @@ a.md-plink:hover {
   margin: 0;
 }
 .md-sim-chip {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .md-sim-chip:hover {
-  background: color-mix(in oklab, var(--accent) 14%, transparent);
+  background: color-mix(in oklab, var(--accent-text) 14%, transparent);
 }

@@ -774,7 +774,7 @@ input.input {
 .mc-when .st {
   font-size: 0.7rem;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 /* grids */
