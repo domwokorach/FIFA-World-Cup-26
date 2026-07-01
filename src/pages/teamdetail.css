@@ -1,0 +1,564 @@
+/* ===== TeamDetail page (prefix: td-) ===== */
+
+/* ---- hero ---- */
+.td-hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.td-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--td-c1, var(--accent)), var(--td-c2, var(--accent-2)));
+}
+.td-hero h1 {
+  margin: 0;
+}
+.td-hero-main {
+  flex: 1;
+  min-width: 200px;
+}
+.td-nick {
+  font-size: 0.9rem;
+  margin-top: 1px;
+  font-style: italic;
+}
+.td-chips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 9px;
+}
+.td-chips .chip b {
+  font-weight: 750;
+}
+.td-fav {
+  flex: none;
+}
+.td-fav.on svg {
+  color: var(--gold);
+}
+
+/* ---- two-column zone (info + group table) ---- */
+.td-cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 12px;
+  align-items: start;
+}
+@media (min-width: 920px) {
+  .td-cols {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 14px;
+  }
+}
+
+/* info rows */
+.td-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.td-row:first-child {
+  padding-top: 0;
+}
+.td-row-l {
+  flex: none;
+  min-width: 104px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.td-row-v {
+  min-width: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.td-web {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--accent-2);
+  font-weight: 650;
+}
+.td-web svg {
+  flex: none;
+}
+.td-web:hover {
+  text-decoration: underline;
+}
+
+/* merged links row: house (official site) + FIFA + Wikipedia icons */
+.td-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+.td-link-icon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent-2);
+}
+/* per-link colors: official site dark green, Wikipedia black (theme-aware so it
+   stays visible on dark); FIFA keeps its own blue badge */
+.td-link-home {
+  color: var(--free);
+}
+.td-link-wiki {
+  color: var(--text);
+}
+.td-link-icon img {
+  display: block;
+}
+.td-link-icon:hover {
+  opacity: 0.7;
+}
+
+/* small Wikipedia-icon link (coach row, player age row) */
+.td-coach {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.td-wiki-icon {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  opacity: 0.8;
+}
+.td-wiki-icon img {
+  display: block;
+}
+.td-wiki-icon:hover {
+  opacity: 1;
+}
+/* on the player age row the icon sits flush against the right edge */
+.td-p-age .td-wiki-icon {
+  margin-inline-start: auto;
+}
+
+.td-skel {
+  color: var(--text-3);
+  font-weight: 500;
+  animation: td-shimmer 1.2s ease-in-out infinite;
+}
+@keyframes td-shimmer {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* description with clamp */
+
+/* ---- mini group standings ---- */
+.td-group h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+/* group heading sits in the first (merged) header cell, not its own row;
+   override the small/uppercase/muted column-header styling */
+.td-table th.td-group-h {
+  vertical-align: bottom;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--text);
+}
+.td-group h3 a:hover {
+  color: var(--accent-2);
+}
+.td-table {
+  width: 100%;
+  font-size: 0.85rem;
+}
+.td-table th {
+  padding: 2px 4px 6px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+.td-table td {
+  padding: 7px 4px 7px 6px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.td-table .l {
+  text-align: start;
+}
+.td-table td.team {
+  width: 99%;
+  max-width: 0;
+}
+.td-table td.team .team-inline {
+  max-width: 100%;
+}
+.td-table td.pts {
+  font-weight: 800;
+}
+.td-rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  background: var(--chip-bg);
+  font-size: 0.72rem;
+  font-weight: 750;
+  color: var(--text-2);
+}
+.td-q-through .td-rank {
+  background: var(--win);
+  color: #fff;
+}
+.td-q-third .td-rank {
+  background: var(--draw);
+  color: #fff;
+}
+.td-q-out .td-rank {
+  background: var(--loss);
+  color: #fff;
+}
+.td-row-me td {
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+}
+.td-row-me td:first-child {
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+[dir="rtl"] .td-row-me td:first-child {
+  box-shadow: inset -3px 0 0 var(--accent);
+} /* accent bar hugs the inline-start edge */
+.td-row-me td.team .nm {
+  font-weight: 750;
+}
+@media (max-width: 479.5px) {
+  .td-table .xw {
+    display: none;
+  }
+}
+
+/* ---- squad ---- */
+.td-squad-note {
+  margin: -6px 0 14px;
+}
+.td-pos-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 20px 0 10px;
+  font-size: 0.97rem;
+  font-weight: 750;
+}
+.td-pos-head:first-of-type {
+  margin-top: 4px;
+}
+.td-pos-head .chip {
+  font-size: 0.68rem;
+}
+
+.td-players {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+@media (min-width: 700px) {
+  .td-players {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1020px) {
+  .td-players {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.td-player {
+  position: relative;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow);
+  padding: 10px 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+  scroll-margin-top: calc(var(--hdr-h, 58px) + 16px);
+}
+/* deep-linked player card flashes once to draw the eye */
+.td-player.flash {
+  animation: td-player-flash 1.8s ease-out;
+}
+@keyframes td-player-flash {
+  0%,
+  20% {
+    border-color: var(--accent-2);
+    box-shadow: 0 0 0 2px var(--accent-2);
+  }
+  100% {
+    border-color: var(--border);
+    box-shadow: var(--shadow);
+  }
+}
+.td-no {
+  position: absolute;
+  top: 10px;
+  inset-inline-end: 12px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--text-3);
+  line-height: 1;
+}
+.td-no::before {
+  content: "#";
+  font-size: 0.72em;
+  opacity: 0.65;
+}
+
+.td-p-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-weight: 700;
+  font-size: 0.92rem;
+  line-height: 1.25;
+}
+.td-cap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  border-radius: 5px;
+  background: var(--gold);
+  color: #fff;
+  font-size: 0.64rem;
+  font-weight: 800;
+  flex: none;
+}
+.td-p-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.78rem;
+  color: var(--text-2);
+}
+.td-p-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.td-p-row .clip {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+.td-p-row .sep {
+  color: var(--text-3);
+}
+/* player stat line: "<n> Apps (<g>⚽) · <n> Apps (<g>⚽)" */
+.td-p-stats {
+  flex-wrap: wrap;
+  gap: 4px 6px;
+}
+.td-apps,
+.td-p-stats .muted {
+  cursor: help;
+}
+
+/* squad loading skeleton */
+.td-skel-grid {
+  margin-top: 4px;
+}
+.td-skel-card {
+  height: 118px;
+  border-radius: var(--r-md);
+  background: var(--bg-sunken);
+  border: 1px solid var(--border);
+  animation: td-shimmer 1.2s ease-in-out infinite;
+}
+
+/* player name links to the English Wikipedia article */
+.td-wiki {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+.td-wiki:hover {
+  color: var(--accent-2);
+  text-decoration: underline;
+}
+.td-wiki svg {
+  flex: none;
+  color: var(--text-3);
+}
+
+/* base-camp row: internal map link + Google Maps side by side */
+.td-camp-links {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 14px;
+}
+.td-gmaps {
+  color: var(--accent-2);
+}
+
+/* suspensions box above the squad list */
+.td-susp {
+  margin-bottom: 14px;
+}
+.td-susp h3 {
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+}
+.td-susp-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 0;
+  font-size: 0.9rem;
+}
+.td-susp-name {
+  font-weight: 700;
+}
+.td-susp-due {
+  display: inline-flex;
+  gap: 5px;
+}
+.td-susp .chip {
+  text-decoration: none;
+}
+.td-susp .chip:hover {
+  border-color: var(--accent-2);
+}
+
+.td-susp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ---- World Cup history (collapsible, dashed box like the group tie-breaks) ---- */
+.td-wc-sec {
+  margin: 26px 0 4px;
+}
+.td-wc-title {
+  margin: 0;
+}
+.td-wc-head {
+  display: flex;
+  align-items: center;
+  gap: 8px 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--r-md);
+  background: transparent;
+  font-family: inherit;
+  color: var(--text);
+  text-align: start;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+.td-wc-head:hover {
+  background: var(--chip-bg);
+}
+/* when open, the trigger and body fuse into one dashed box */
+.td-wc-head[aria-expanded="true"] {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.td-wc-name {
+  flex: none;
+  font-size: 1.02rem;
+  font-weight: 750;
+}
+.td-wc-summary {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+.td-wc-chev {
+  flex: none;
+  color: var(--text-3);
+  transition: transform 0.15s ease;
+}
+.td-wc-head:hover .td-wc-chev {
+  color: var(--text-2);
+}
+.td-wc-chev.open {
+  transform: rotate(180deg);
+}
+.td-wc-body {
+  padding: 2px 12px 6px;
+  border: 1px dashed var(--border-strong);
+  border-top: 0;
+  border-bottom-left-radius: var(--r-md);
+  border-bottom-right-radius: var(--r-md);
+}
+.td-wc-titles {
+  font-weight: 700;
+}
+/* Edition cell: year then host flag(s); host name lives in each flag's title */
+.td-wc-ed {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.td-wc-fin {
+  font-weight: 650;
+}
+.td-wc-fin-gold {
+  color: var(--gold);
+  font-weight: 800;
+}
+.td-wc-fin-silver {
+  color: #9aa3ad;
+  font-weight: 750;
+}
+.td-wc-fin-bronze {
+  color: #c0814f;
+  font-weight: 750;
+}
+/* tournaments the team missed: greyed, with the reason spanning the stat columns */
+.td-wc-miss td {
+  color: var(--text-3);
+}
+.td-wc-total td {
+  border-top: 2px solid var(--border);
+  font-weight: 750;
+  color: var(--text-2);
+}

@@ -1,0 +1,438 @@
+/* ============ Tournament forecast ============ */
+
+.sim-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 22px;
+}
+.sim-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sim-radio {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+.sim-runs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 220px;
+}
+.sim-runs input[type="range"] {
+  flex: 1;
+  accent-color: var(--accent-2);
+}
+/* fixed width; must out-rank the generic .input width */
+.sim-runs input.sim-n {
+  width: 6.5em;
+  flex: none;
+  text-align: center;
+}
+.sim-note {
+  flex-basis: 100%;
+  margin: 0;
+}
+
+.sim-champ {
+  margin-top: 14px;
+}
+.sim-sample-h {
+  font-size: 1rem;
+  margin: 0 0 10px;
+}
+.sim-champ-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.sim-champ-label {
+  font-size: 0.8rem;
+  color: var(--text-2);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.sim-champ-name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 850;
+}
+
+.section-title-h {
+  font-size: 1.05rem;
+  margin: 20px 0 10px;
+}
+
+.sim-groups-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+.sim-group {
+  padding: 8px 10px;
+}
+.sim-group-head {
+  font-weight: 750;
+  font-size: 0.78rem;
+  color: var(--text-2);
+  margin-bottom: 5px;
+}
+.sim-group-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 0;
+  font-size: 0.82rem;
+}
+.sim-group-row.q .sim-team {
+  font-weight: 750;
+}
+.sim-group-row:not(.q) {
+  opacity: 0.62;
+}
+.sim-pos {
+  width: 12px;
+  color: var(--text-3);
+  font-size: 0.72rem;
+}
+.sim-team {
+  flex: 1;
+}
+.sim-gd {
+  color: var(--text-3);
+  font-size: 0.74rem;
+  width: 26px;
+  text-align: end;
+}
+.sim-pts {
+  font-weight: 800;
+  width: 18px;
+  text-align: end;
+}
+
+.sim-stage h3 {
+  font-size: 0.85rem;
+  color: var(--text-2);
+  margin: 12px 0 6px;
+}
+.sim-stage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 6px 14px;
+}
+.sim-ko-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  font-size: 0.84rem;
+}
+.sim-ko-team {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.sim-ko-team.away {
+  justify-content: flex-end;
+}
+.sim-ko-team.win {
+  font-weight: 800;
+}
+.sim-ko-score {
+  flex: none;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+/* per-group simulated scorelines under each table */
+.sim-group-matches {
+  margin-top: 7px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.sim-gm {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--text-2);
+}
+.sim-gm > span:first-child,
+.sim-gm > span:last-child {
+  flex: 1;
+}
+.sim-gm > span:last-child {
+  text-align: end;
+}
+.sim-gm .win {
+  font-weight: 800;
+  color: var(--text);
+}
+.sim-gm-score {
+  color: var(--text-3);
+}
+
+/* knockout: a.e.t. badge + 90'/pens detail line */
+.sim-ko-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.2;
+}
+.sim-aet {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--accent-text);
+  vertical-align: super;
+}
+.sim-ko-sub {
+  font-size: 0.66rem;
+  font-weight: 500;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+/* places 2-4 under the champion */
+.sim-podium {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.sim-podium-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.86rem;
+}
+.sim-podium-label {
+  color: var(--text-3);
+  font-weight: 700;
+  font-size: 0.76rem;
+}
+.sim-podium-name {
+  font-weight: 650;
+}
+
+/* ============ "Simulate from" cut-point selector ============ */
+.sim-from {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  flex-basis: 100%;
+}
+.sim-from-label {
+  font-weight: 750;
+  font-size: 0.78rem;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.sim-from .sim-radio {
+  gap: 6px;
+}
+.sim-radio-off {
+  opacity: 0.55;
+}
+.sim-from input[type="radio"] {
+  accent-color: var(--accent);
+}
+.sim-from input[type="date"].sim-date {
+  width: auto;
+  flex: none;
+  padding-block: 4px;
+}
+input.sim-matchno {
+  width: 5.2em;
+  flex: none;
+  text-align: center;
+}
+
+/* ============ info dot + tooltip ============ */
+.infodot {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+}
+.infodot-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--text-3);
+  cursor: pointer;
+  border-radius: 999px;
+}
+.infodot-btn:hover {
+  color: var(--accent-text);
+}
+.infodot-tip {
+  position: absolute;
+  z-index: 60;
+  inset-inline-start: 50%;
+  top: calc(100% + 6px);
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 240px;
+  padding: 7px 10px;
+  border-radius: var(--r-sm);
+  background: var(--text);
+  color: var(--bg-elev);
+  font-size: 0.76rem;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: start;
+  box-shadow: 0 4px 16px #0003;
+  display: none;
+}
+.infodot:hover .infodot-tip,
+.infodot:focus-within .infodot-tip,
+.infodot-tip.open {
+  display: block;
+}
+
+/* ============ outcome-probability table ============ */
+.fc-section h2 {
+  font-size: 1rem;
+  margin: 0 0 10px;
+}
+.fc-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  margin-bottom: 10px;
+}
+.fc-search {
+  flex: 1;
+  min-width: 140px;
+  max-width: 280px;
+}
+.fc-grp {
+  flex: none;
+}
+.fc-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  -webkit-overflow-scrolling: touch;
+}
+.fc-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.8rem;
+}
+.fc-table th,
+.fc-table td {
+  text-align: center;
+  padding: 0;
+  white-space: nowrap;
+}
+.fc-table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-sunken);
+  z-index: 2;
+}
+.fc-sec {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-3);
+  font-weight: 750;
+  padding: 5px 4px;
+  border-inline-start: 2px solid var(--border-strong);
+}
+.fc-col-btn {
+  width: 100%;
+  border: none;
+  background: none;
+  color: var(--text-2);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 5px 7px;
+}
+.fc-col-btn:hover,
+.fc-col.fc-sorted .fc-col-btn {
+  color: var(--accent-text);
+}
+.fc-col.fc-sorted {
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+.fc-caret {
+  margin-inline-start: 3px;
+  font-size: 0.85em;
+}
+/* sticky team column: header cell + per-row header */
+.fc-team-h,
+.fc-team {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 3;
+  background: var(--bg-elev);
+  text-align: start;
+  /* shrink-to-fit: the column is exactly as wide as the longest team name */
+  width: 1px;
+  white-space: nowrap;
+}
+.fc-table thead .fc-team-h {
+  z-index: 4;
+  background: var(--bg-sunken);
+}
+.fc-team a {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 8px;
+  color: inherit;
+  text-decoration: none;
+  font-weight: 650;
+}
+.fc-team a:hover {
+  color: var(--accent-text);
+}
+.fc-team-name {
+  white-space: nowrap;
+}
+.fc-cell {
+  padding: 4px 7px;
+  font-weight: 650;
+  min-width: 30px;
+  border-inline-start: 1px solid var(--border);
+}
+.fc-table tbody tr:hover {
+  outline: 1px solid var(--border-strong);
+  outline-offset: -1px;
+}
+.fc-champ-col {
+  border-inline-start: 1px solid var(--border-strong);
+}
+.fc-table thead .fc-champ-col {
+  background: color-mix(in oklab, var(--accent) 16%, var(--bg-sunken));
+}
+.fc-note {
+  margin: 8px 0 0;
+}

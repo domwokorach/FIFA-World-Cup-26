@@ -1,0 +1,344 @@
+/* ============ Matches page (prefix mxp-) ============ */
+
+/* everything above the list sticks; content fades out under it */
+.mxp-sticky {
+  position: sticky;
+  top: var(--hdr-h, 58px);
+  z-index: 30;
+  background: var(--bg);
+  padding-top: 8px;
+}
+.mxp-sticky::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 28px;
+  background: linear-gradient(var(--bg), transparent);
+  pointer-events: none;
+}
+
+.mxp-bar {
+  padding: 4px 0 0;
+}
+
+/* jump shortcuts: opener / now / knockouts / final */
+.mxp-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.mxp-jump-btn {
+  flex: none;
+  padding: 5px 13px;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 650;
+  color: var(--text-2);
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.mxp-jump-btn:hover {
+  color: var(--accent-2);
+  border-color: var(--accent-2);
+}
+
+/* mobile toggle row */
+.mxp-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.mxp-count {
+  margin-inline-start: auto;
+  white-space: nowrap;
+}
+/* collapsible panel (every width); grid-rows 0fr->1fr animates the height */
+.mxp-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.28s ease,
+    opacity 0.22s ease,
+    margin-top 0.28s ease,
+    visibility 0s linear 0.28s;
+  margin-top: 0;
+}
+.mxp-panel.open {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  opacity: 1;
+  transition:
+    grid-template-rows 0.28s ease,
+    opacity 0.22s ease 0.06s,
+    margin-top 0.28s ease,
+    visibility 0s;
+  margin-top: 12px;
+}
+.mxp-panel-in {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mxp-panel,
+  .mxp-panel.open,
+  .mxp-odds-wrap,
+  .mxp-odds-wrap.open,
+  .mxp-odds-restore,
+  .mxp-odds-restore.on {
+    transition: none;
+  }
+}
+
+/* label-less selects share the quick row, pushed to the end */
+.mxp-quick-selects {
+  display: flex;
+  gap: 6px;
+  margin-inline-start: auto;
+  min-width: 0;
+}
+.mxp-select {
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  max-width: 180px;
+  min-width: 0;
+}
+
+/* team chips: fixed quick actions + scrollable 2-row strip of 48 teams */
+.mxp-teams-row {
+  display: flex;
+  flex-direction: column; /* quick actions on top, team chips wrap below */
+  gap: 8px;
+  min-width: 0;
+}
+.mxp-quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.mxp-teams {
+  display: flex;
+  flex-wrap: wrap; /* all 48 chips visible — no horizontal scrolling */
+  gap: 6px;
+  min-width: 0;
+  padding: 2px;
+}
+
+.mxp-tchip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-elev);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background 0.15s,
+    color 0.15s;
+}
+.mxp-tchip:hover {
+  background: var(--bg-sunken);
+}
+.mxp-tchip.on {
+  border-color: var(--accent);
+  color: var(--accent-text);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+/* day sections: sticky day headers stack below the sticky filter block */
+.mxp .day-head {
+  top: calc(var(--hdr-h, 58px) + var(--mxp-sticky-h, 0px));
+}
+.mxp-day {
+  margin-bottom: 14px;
+  scroll-margin-top: calc(var(--hdr-h, 58px) + var(--mxp-sticky-h, 0px) + 4px);
+}
+.mxp-day:first-of-type {
+  margin-top: 14px;
+}
+
+/* card shadows would ghost through the fade veil when sliding under the
+   sticky block — match-list cards sit flat (border only) */
+.mxp-day .match-card {
+  box-shadow: none;
+}
+
+/* count sits on the title row; freshness on the jump row — both flush right */
+.mxp-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2px 12px;
+}
+.mxp-head h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  padding-top: 8px;
+}
+.mxp .page-head {
+  margin: 0;
+}
+/* the sticky block starts flush at the top on this page only */
+.shell-main:has(.mxp) {
+  padding-top: 0;
+}
+
+/* title-odds ticker: top of the sticky block, under the app bar.
+   Dismiss tucks it toward the restore chip (top right); restore grows it back */
+.mxp-odds-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px) scale(0.97);
+  transform-origin: top right;
+  transition:
+    grid-template-rows 0.26s ease,
+    opacity 0.2s ease,
+    transform 0.26s ease,
+    margin 0.26s ease,
+    visibility 0s linear 0.26s;
+}
+.mxp-odds-wrap.open {
+  grid-template-rows: 1fr;
+  margin: 8px 0 2px;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    grid-template-rows 0.26s ease,
+    opacity 0.2s ease 0.05s,
+    transform 0.26s ease,
+    margin 0.26s ease,
+    visibility 0s;
+}
+.mxp-odds-wrap > .mxp-odds {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.mxp-odds {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  padding: 6px 12px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  text-decoration: none;
+  color: var(--text);
+  font-size: 0.8rem;
+  transition:
+    padding 0.26s ease,
+    border-width 0.26s ease;
+}
+.mxp-odds-wrap:not(.open) > .mxp-odds {
+  padding-top: 0;
+  padding-bottom: 0;
+  border-top-width: 0;
+  border-bottom-width: 0;
+}
+.mxp-odds:hover {
+  border-color: var(--accent-2);
+}
+.mxp-odds-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+.mxp-odds-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  font-weight: 650;
+}
+.mxp-odds-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.mxp-odds-champ {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 800;
+}
+.mxp-odds-cta {
+  margin-inline-start: auto;
+  font-size: 0.76rem;
+  font-weight: 650;
+  color: var(--accent-2);
+  white-space: nowrap;
+}
+.mxp-odds-close {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font-size: 0.9rem;
+  line-height: 1;
+  color: var(--text-3);
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.mxp-odds-close:hover {
+  color: var(--text);
+  background: var(--border);
+}
+.mxp-head-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.mxp-odds-restore {
+  display: grid;
+  place-items: center;
+  padding: 2px 8px;
+  background: transparent;
+  border: 1px dashed var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.4);
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    transform 0.22s ease;
+}
+.mxp-odds-restore.on {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+  transition:
+    opacity 0.2s ease 0.18s,
+    transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1) 0.18s;
+}
+.mxp-odds-restore:hover {
+  border-color: var(--accent-2);
+}

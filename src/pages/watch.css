@@ -1,0 +1,167 @@
+/* ============ Watch page ============ */
+
+.watch-top {
+  /* keep the picker visible below the sticky header when scrolled into view */
+  scroll-margin-top: 72px;
+}
+
+/* selected market panel */
+.watch-panel {
+  margin-top: 14px;
+  max-width: 760px;
+  padding: 8px 16px 14px;
+}
+.watch-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0 8px;
+}
+.watch-panel-head h2 {
+  margin: 0;
+}
+
+.watch-ch {
+  padding: 10px 0;
+  border-top: 1px solid var(--border);
+}
+.watch-ch-line {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.watch-ch-name {
+  font-size: 0.95rem;
+  margin-inline-end: 2px;
+}
+.watch-ch-lang {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+.watch-ch-note {
+  margin-top: 3px;
+  line-height: 1.4;
+}
+
+.watch-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  font-weight: 650;
+  color: var(--accent-2);
+}
+.watch-source:hover {
+  text-decoration: underline;
+}
+
+/* free-TV overview grid */
+.watch-overview-head {
+  align-items: center;
+}
+
+.watch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+@media (min-width: 700px) {
+  .watch-grid {
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  }
+}
+
+.watch-mini {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  padding: 10px 12px;
+  text-align: start;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    transform 0.1s;
+}
+.watch-mini:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+}
+.watch-mini.on {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, var(--bg-elev));
+}
+.watch-mini-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+.watch-mini-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.watch-mini-free {
+  color: var(--free);
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.watch-mini-free.none {
+  color: var(--text-3);
+  font-weight: 500;
+}
+
+.watch-disclaimer {
+  margin-top: 24px;
+  max-width: 760px;
+}
+
+/* the panel heading doubles as the market dropdown */
+.watch-h2-select {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  cursor: pointer;
+  padding: 2px 26px 2px 0;
+  margin-inline-start: -2px;
+  max-width: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+[dir="rtl"] .watch-h2-select {
+  padding: 2px 0 2px 26px;
+  background-position: left center;
+}
+.watch-h2-select:hover {
+  color: var(--accent-2);
+}
+.watch-h2-select option {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--bg-elev);
+}
+.watch-hint {
+  margin: 2px 0 0;
+}
+
+/* when the user's country has no broadcaster data nothing is preselected —
+   the pick-your-country hint becomes the panel's main message */
+.watch-hint-strong {
+  margin: 2px 0 0;
+  font-size: 0.95rem;
+  font-weight: 650;
+  color: var(--text);
+}

@@ -1,0 +1,174 @@
+{
+ "Lawrence|US": {
+  "lat": 38.97167,
+  "lon": -95.23525
+ },
+ "Kansas City|US": {
+  "lat": 39.09973,
+  "lon": -94.57857
+ },
+ "Oakland|US": {
+  "lat": 37.80437,
+  "lon": -122.2708
+ },
+ "Goleta|US": {
+  "lat": 34.43583,
+  "lon": -119.82764
+ },
+ "Renton|US": {
+  "lat": 47.48288,
+  "lon": -122.21707
+ },
+ "Sandy|US": {
+  "lat": 40.59161,
+  "lon": -111.8841
+ },
+ "Morristown|US": {
+  "lat": 36.21398,
+  "lon": -83.29489
+ },
+ "Vancouver|CA": {
+  "lat": 49.24966,
+  "lon": -123.11934
+ },
+ "Chester|US": {
+  "lat": 37.91366,
+  "lon": -89.82205
+ },
+ "Houston|US": {
+  "lat": 29.76328,
+  "lon": -95.36327
+ },
+ "Guadalajara|MX": {
+  "lat": 20.67738,
+  "lon": -103.34749
+ },
+ "Tampa|US": {
+  "lat": 27.94752,
+  "lon": -82.45843
+ },
+ "Alexandria|US": {
+  "lat": 38.80484,
+  "lon": -77.04692
+ },
+ "Boca Raton|US": {
+  "lat": 26.35869,
+  "lon": -80.0831
+ },
+ "Mansfield|US": {
+  "lat": 40.75839,
+  "lon": -82.51545
+ },
+ "Columbus|US": {
+  "lat": 39.96118,
+  "lon": -82.99879
+ },
+ "Spokane|US": {
+  "lat": 47.65966,
+  "lon": -117.42908
+ },
+ "Chattanooga|US": {
+  "lat": 35.04563,
+  "lon": -85.30968
+ },
+ "Boston|US": {
+  "lat": 42.35843,
+  "lon": -71.05977
+ },
+ "Winston-Salem|US": {
+  "lat": 36.09986,
+  "lon": -80.24422
+ },
+ "Smithfield|US": {
+  "lat": 35.50849,
+  "lon": -78.33945
+ },
+ "Galloway|US": {
+  "lat": 39.23176,
+  "lon": -80.12203
+ },
+ "Tijuana|MX": {
+  "lat": 32.5027,
+  "lon": -117.00371
+ },
+ "White Sulphur Springs|US": {
+  "lat": 46.54828,
+  "lon": -110.90216
+ },
+ "Portland|US": {
+  "lat": 45.52345,
+  "lon": -122.67621
+ },
+ "Nashville|US": {
+  "lat": 36.16589,
+  "lon": -86.78444
+ },
+ "Austin|US": {
+  "lat": 30.26715,
+  "lon": -97.74306
+ },
+ "Basking Ridge|US": {
+  "lat": 40.70621,
+  "lon": -74.54932
+ },
+ "Mexico City|MX": {
+  "lat": 19.42847,
+  "lon": -99.12766
+ },
+ "Greensboro|US": {
+  "lat": 36.07264,
+  "lon": -79.79198
+ },
+ "San Diego|US": {
+  "lat": 32.71571,
+  "lon": -117.16472
+ },
+ "San Jose|US": {
+  "lat": 37.33939,
+  "lon": -121.89496
+ },
+ "Palm Beach Gardens|US": {
+  "lat": 26.82339,
+  "lon": -80.13865
+ },
+ "Santa Barbara|US": {
+  "lat": 34.42083,
+  "lon": -119.69819
+ },
+ "Pachuca|MX": {
+  "lat": 20.11697,
+  "lon": -98.73329
+ },
+ "Charlotte|US": {
+  "lat": 35.22709,
+  "lon": -80.84313
+ },
+ "New Brunswick|US": {
+  "lat": 40.48622,
+  "lon": -74.45182
+ },
+ "Frisco|US": {
+  "lat": 33.15067,
+  "lon": -96.82361
+ },
+ "Monterrey|MX": {
+  "lat": 25.68435,
+  "lon": -100.31721
+ },
+ "Mesa|US": {
+  "lat": 33.42227,
+  "lon": -111.82264
+ },
+ "Playa del Carmen|MX": {
+  "lat": 20.6274,
+  "lon": -87.07987
+ },
+ "Irvine|US": {
+  "lat": 33.66946,
+  "lon": -117.82311
+ },
+ "Marietta|US": {
+  "lat": 33.9526,
+  "lon": -84.54993
+ }
+}

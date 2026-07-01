@@ -1,0 +1,16 @@
+name: 26worldcup
+
+services:
+  web:
+    build:
+      context: .
+      target: serve
+    image: ghcr.io/26worldcup/26worldcup:latest
+    ports:
+      - "8080:80"
+    environment:
+      # remote (default) = always-fresh data proxied from the live site.
+      # bundled = baked-in snapshot. self = updater sidecar (docker-compose.self.yml).
+      DATA_SOURCE: remote
+      REMOTE_DATA_HOST: 26worldcup.github.io
+    restart: unless-stopped

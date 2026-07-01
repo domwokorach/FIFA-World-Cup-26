@@ -1,0 +1,183 @@
+# Daily data refresh: fetches the latest matches/results/lineups/weather,
+# commits the JSON, then redeploys GitHub Pages with the fresh data.
+# (Bot pushes made with GITHUB_TOKEN do not trigger deploy.yml, so this
+# workflow carries its own deploy job.)
+name: Update World Cup data
+
+on:
+  schedule:
+    # Coarse grid + in-job gate (scripts/cron-guard.mjs). The previous
+    # 142-entry generated table proved unreliable: GitHub's scheduler drops
+    # entries from very long schedule lists, so all of June 11's match-window
+    # crons silently never fired. Now the workflow wakes every 15 minutes
+    # during the tournament and the guard decides in ~5s whether to proceed.
+    - cron: '23 4 * * *' # daily full refresh (off-peak minute)
+    - cron: '7,22,37,52 * 11-30 6 *' # June 11-30: 15-min grid, off-peak minutes (gated)
+    - cron: '7,22,37,52 * 1-19 7 *' # July 1-19: 15-min grid, off-peak minutes (gated)
+  workflow_dispatch:
+    inputs:
+      relay:
+        description: internal — set by the self-relay; window-gated like cron
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.guard.outputs.run }}
+      wait: ${{ steps.guard.outputs.wait }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: guard
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.relay }}" != "true" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "cron-guard: manual dispatch -> run=true"
+          else
+            node scripts/cron-guard.mjs
+          fi
+
+  # a stray cron landing up to 4h before a window sleeps until it opens and
+  # ignites the relay chain — converts GitHub's lottery-timed schedule hits
+  # into on-time ignition. The workflow-level concurrency group makes
+  # simultaneous bridges collapse into at most one queued run.
+  bridge:
+    needs: gate
+    if: needs.gate.outputs.run != 'true' && needs.gate.outputs.wait != ''
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Sleep until the window opens, then ignite
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "bridging ${{ needs.gate.outputs.wait }}s to the next match window"
+          sleep "${{ needs.gate.outputs.wait }}"
+          gh workflow run update-data.yml -f relay=true --repo "$GITHUB_REPOSITORY"
+
+  update:
+    needs: gate
+    if: needs.gate.outputs.run == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.3.10'
+      - run: bun install --frozen-lockfile
+      - run: bun run update
+      - name: Sanity-check generated data before committing
+        run: |
+          node -e "
+            const m = require('./public/data/meta.json');
+            if (m.counts.matches !== 104 || m.counts.teams !== 48) {
+              console.error('refusing to commit suspicious data:', m.counts);
+              process.exit(1);
+            }
+            const { matches } = require('./public/data/matches.json');
+            if (matches.length !== 104) {
+              console.error('refusing to commit suspicious data: matches.json has', matches.length, 'matches');
+              process.exit(1);
+            }
+            const bad = matches.filter((x) => x.status === 'finished' && (x.home?.score == null || x.away?.score == null));
+            if (bad.length) {
+              console.error('refusing to commit suspicious data: finished matches with null scores:', bad.map((x) => x.id));
+              process.exit(1);
+            }
+            if (m.errors.length) console.warn('update warnings:', m.errors);
+          "
+      - name: Commit refreshed data
+        run: |
+          git config user.name 'wc2026-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add public/data public/flags scripts/cache
+          if git diff --cached --quiet; then
+            echo "no data changes to commit"
+            exit 0
+          fi
+          git commit -m "data: scheduled update $(date -u +%F)"
+          # main may have moved while the update ran — rebase and retry up to 3 times
+          for attempt in 1 2 3; do
+            git pull --rebase origin main || { echo "rebase failed (attempt $attempt)"; sleep 10; continue; }
+            if git push origin main; then
+              exit 0
+            fi
+            echo "push rejected (attempt $attempt), retrying"
+            sleep 10
+          done
+          echo "::error::failed to push data commit after 3 attempts"
+          exit 1
+
+  deploy:
+    needs: update
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main # pick up the data commit pushed by the update job
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.3.10'
+      - run: bun install --frozen-lockfile
+      - run: bun run build
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true # creates/enables the Pages site on first run
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+  relay:
+    needs: update
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sleep one cadence step, then re-dispatch if still in a match window
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sleep 780
+          # fresh statuses (this run's update job just committed them): a match
+          # that is already finished stops demanding cadence — the chain dies
+          # one step after full time instead of riding out the 3h45 hard cap
+          curl -sf "https://raw.githubusercontent.com/$GITHUB_REPOSITORY/main/public/data/matches.json" -o /tmp/matches.json \
+            || cp public/data/matches.json /tmp/matches.json
+          RUN=$(node -e "
+            const {matches}=require('/tmp/matches.json');
+            const now=Date.now();
+            const ok=matches.some(m=>{
+              const ko=Date.parse(m.date);
+              if(now<ko-25*60000||now>ko+225*60000) return false;
+              return m.status!=='finished';
+            });
+            console.log(ok?'true':'false');
+          ")
+          echo "relay: in-window=$RUN"
+          if [ "$RUN" = "true" ]; then
+            gh workflow run update-data.yml -f relay=true --repo "$GITHUB_REPOSITORY"
+          fi

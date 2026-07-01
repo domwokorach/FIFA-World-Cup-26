@@ -1,0 +1,203 @@
+/* ===== Settings page (se- prefix) ===== */
+
+.se-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 860px;
+}
+.se-card > h2 {
+  font-size: 1.05rem;
+  margin: 0 0 10px;
+}
+.se-hint {
+  color: var(--text-2);
+  font-size: 0.84rem;
+  margin: -4px 0 14px;
+}
+
+/* time zone radio list */
+.se-radio-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.se-radio {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  text-align: start;
+  padding: 11px 13px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: transparent;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+}
+.se-radio:hover {
+  background: var(--bg-sunken);
+}
+.se-radio.on {
+  border-color: var(--accent-2);
+  background: color-mix(in srgb, var(--accent-2) 8%, transparent);
+}
+.se-dot {
+  position: relative;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  border: 2px solid var(--border-strong);
+  background: var(--bg-elev);
+  flex: none;
+}
+.se-radio.on .se-dot {
+  border-color: var(--accent-2);
+}
+.se-radio.on .se-dot::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--accent-2);
+}
+.se-radio-cur {
+  margin-inline-start: auto;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* fixed-tz searchable picker */
+.se-tz-pick {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border);
+}
+@media (min-width: 640px) {
+  .se-tz-pick {
+    flex-direction: row;
+  }
+  .se-tz-pick > * {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+/* favorite teams */
+.se-fav-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.se-fav-head h2 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+.se-clear {
+  margin-inline-start: auto;
+  padding: 5px 12px;
+  font-size: 0.8rem;
+}
+.se-group {
+  margin-top: 12px;
+}
+.se-group-label {
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 7px;
+}
+.se-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.se-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding-block: 6px;
+  padding-inline: 9px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-elev);
+  font-weight: 600;
+  font-size: 0.84rem;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background 0.15s,
+    color 0.15s;
+}
+.se-chip:hover {
+  background: var(--bg-sunken);
+}
+.se-chip.on {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+/* calendar export */
+.se-export-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* data card */
+.se-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0 14px;
+}
+.se-counts .chip strong {
+  font-weight: 750;
+}
+.se-code {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  background: var(--bg-sunken);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 12px;
+}
+.se-reset {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.se-danger {
+  border-color: color-mix(in srgb, var(--loss) 45%, var(--border-strong));
+  color: var(--loss);
+}
+.se-danger:hover {
+  background: color-mix(in srgb, var(--loss) 8%, transparent);
+}
+
+/* country for TV channels */
+.se-market {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 420px;
+}
+.se-market select {
+  flex: 1;
+}

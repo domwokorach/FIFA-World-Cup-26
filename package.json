@@ -1,0 +1,76 @@
+{
+  "name": "26worldcup",
+  "version": "1.0.0",
+  "description": "2026 World Cup Open Source Companion: schedule, groups, bracket, teams, venues, weather, where to watch, win probabilities and tournament forecast, in 23 languages. Unofficial PWA",
+  "keywords": [
+    "world-cup",
+    "world-cup-2026",
+    "fifa",
+    "football",
+    "soccer",
+    "schedule",
+    "fixtures",
+    "bracket",
+    "standings",
+    "forecast",
+    "simulator",
+    "prediction",
+    "probability",
+    "pwa",
+    "offline-first",
+    "i18n",
+    "multilingual",
+    "react",
+    "vite",
+    "typescript",
+    "fan-made",
+    "open-source"
+  ],
+  "homepage": "https://26worldcup.github.io",
+  "bugs": {
+    "url": "https://github.com/26worldcup/26worldcup.github.io/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/26worldcup/26worldcup.github.io.git"
+  },
+  "license": "MIT",
+  "author": "Tom Chen (tomchen.org)",
+  "type": "module",
+  "engines": {
+    "bun": ">=1.1"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "update": "bun scripts/update.mjs",
+    "genmap": "bun scripts/genmap.mjs",
+    "gencron": "bun scripts/gencron.mjs",
+    "typecheck": "tsc -b",
+    "lint": "biome check .",
+    "a11y": "bun scripts/a11y.mjs",
+    "checkall": "bun run typecheck && bun run format && bun run lint",
+    "checkall:build": "bun run checkall && bun run build && bun run smoke && bun run a11y",
+    "smoke": "bun scripts/smoke.mjs",
+    "format": "biome format --write .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router-dom": "^7.17.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.16",
+    "@types/node": "^25.9.3",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "axe-core": "^4.12.1",
+    "opentype.js": "^2.0.0",
+    "puppeteer-core": "^25.1.0",
+    "typescript": "~6.0.3",
+    "vite": "^8.0.16",
+    "vite-plugin-pwa": "^1.3.0"
+  }
+}

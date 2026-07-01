@@ -1,0 +1,115 @@
+/* ============ Teams page ============ */
+
+.tm-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+}
+.tm-head h1 {
+  margin: 0;
+}
+.tm-search {
+  flex: 1 1 100%;
+}
+@media (min-width: 560px) {
+  .tm-search {
+    flex: 0 1 320px;
+    margin-inline-start: auto;
+  }
+}
+
+.tm-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  transition:
+    border-color 0.15s,
+    transform 0.1s;
+}
+.tm-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+}
+
+.tm-info {
+  flex: 1;
+  min-width: 0;
+}
+.tm-name {
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tm-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 7px;
+  margin-top: 2px;
+  min-width: 0;
+}
+.tm-nick {
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--text-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* group / confederation / ranking selector */
+.tm-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.tm-mode {
+  flex: none;
+  padding: 6px 14px;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 650;
+  color: var(--text-2);
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.tm-mode:hover {
+  color: var(--accent-2);
+  border-color: var(--accent-2);
+}
+.tm-mode.on {
+  color: var(--accent-2);
+  border-color: var(--accent-2);
+  background: color-mix(in srgb, var(--accent-2) 12%, var(--bg-elev));
+}
+
+.tm-star {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: var(--text-3);
+  cursor: pointer;
+  padding: 8px;
+  margin-block: -8px;
+  margin-inline: 0 -4px;
+  border-radius: 50%;
+  transition:
+    color 0.15s,
+    background 0.15s;
+}
+.tm-star:hover {
+  color: var(--gold);
+  background: var(--chip-bg);
+}
+.tm-star.on {
+  color: var(--gold);
+}

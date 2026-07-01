@@ -1,0 +1,543 @@
+/* ============ Bracket page — centre-converging knockout tree ============ */
+/* No horizontal scrolling: the grid compresses to the container width and
+   nodes grow taller (names wrap) as columns get narrower; below 880px the
+   tree reflows into a vertical round-by-round list. */
+.bk-page {
+  --bk-gap: 12px; /* column gap = room for connector lines */
+  --bk-row: 104px; /* one r32 slot; every round spans 2× the previous */
+  --bk-node-min: 64px;
+  --bk-line: color-mix(in srgb, var(--border-strong) 85%, transparent);
+}
+@media (min-width: 1160px) {
+  .bk-page {
+    --bk-gap: 16px;
+    --bk-row: 90px;
+  }
+}
+
+/* the knockout tree is a symmetric diagram: keep its geometry LTR even for
+   Arabic, while the text inside nodes/headers still flows RTL */
+[dir="rtl"] .bk-grid {
+  direction: ltr;
+}
+[dir="rtl"] .bk-node,
+[dir="rtl"] .bk-head,
+[dir="rtl"] .bk-mhead,
+[dir="rtl"] .bk-champion,
+[dir="rtl"] .bk-third {
+  direction: rtl;
+}
+
+.bk-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.18fr)
+    repeat(3, minmax(0, 1fr))
+    minmax(0, 1.5fr)
+    repeat(3, minmax(0, 1fr))
+    minmax(0, 1.18fr);
+  grid-template-rows: auto repeat(8, minmax(var(--bk-row), auto));
+  column-gap: var(--bk-gap);
+  row-gap: 0;
+  width: 100%;
+  padding: 2px;
+}
+
+/* ---- round headers (grid mode) ---- */
+.bk-head {
+  align-self: end;
+  text-align: center;
+  padding-bottom: 14px;
+  min-width: 0;
+}
+.bk-head-stage {
+  font-weight: 750;
+  font-size: 0.84rem;
+  letter-spacing: -0.01em;
+}
+.bk-head-dates {
+  font-size: 0.68rem;
+  color: var(--text-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* mobile round headings live in the flex flow; hidden in grid mode */
+.bk-mhead {
+  display: none;
+}
+
+/* ---- grid cells ---- */
+.bk-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+/* ---- connectors (drawn in the column gaps) ----
+   feeders draw an elbow toward the centre; receivers draw the short
+   stub from the gap midpoint into their own card */
+.bk-l.bk-top::after,
+.bk-l.bk-bot::after,
+.bk-r.bk-top::after,
+.bk-r.bk-bot::after,
+.bk-l.bk-mid::after,
+.bk-r.bk-mid::after,
+.bk-join::before {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+/* left half feeds rightward */
+.bk-l.bk-top::after {
+  left: 100%;
+  width: calc(var(--bk-gap) / 2 + 1px);
+  top: calc(50% - 1px);
+  bottom: -1px;
+  border-top: 2px solid var(--bk-line);
+  border-right: 2px solid var(--bk-line);
+  border-top-right-radius: 9px;
+}
+.bk-l.bk-bot::after {
+  left: 100%;
+  width: calc(var(--bk-gap) / 2 + 1px);
+  top: -1px;
+  bottom: calc(50% - 1px);
+  border-bottom: 2px solid var(--bk-line);
+  border-right: 2px solid var(--bk-line);
+  border-bottom-right-radius: 9px;
+}
+.bk-l.bk-mid::after {
+  left: 100%;
+  width: var(--bk-gap);
+  top: calc(50% - 1px);
+  height: 2px;
+  background: var(--bk-line);
+}
+.bk-l.bk-join::before {
+  right: 100%;
+  width: calc(var(--bk-gap) / 2 + 1px);
+  top: calc(50% - 1px);
+  height: 2px;
+  background: var(--bk-line);
+}
+
+/* right half mirrored: feeds leftward */
+.bk-r.bk-top::after {
+  right: 100%;
+  width: calc(var(--bk-gap) / 2 + 1px);
+  top: calc(50% - 1px);
+  bottom: -1px;
+  border-top: 2px solid var(--bk-line);
+  border-left: 2px solid var(--bk-line);
+  border-top-left-radius: 9px;
+}
+.bk-r.bk-bot::after {
+  right: 100%;
+  width: calc(var(--bk-gap) / 2 + 1px);
+  top: -1px;
+  bottom: calc(50% - 1px);
+  border-bottom: 2px solid var(--bk-line);
+  border-left: 2px solid var(--bk-line);
+  border-bottom-left-radius: 9px;
+}
+.bk-r.bk-mid::after {
+  right: 100%;
+  width: var(--bk-gap);
+  top: calc(50% - 1px);
+  height: 2px;
+  background: var(--bk-line);
+}
+.bk-r.bk-join::before {
+  left: 100%;
+  width: calc(var(--bk-gap) / 2 + 1px);
+  top: calc(50% - 1px);
+  height: 2px;
+  background: var(--bk-line);
+}
+
+/* ---- match node ---- */
+.bk-node {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
+  width: 100%;
+  min-height: var(--bk-node-min);
+  padding: 5px 8px 6px;
+  overflow: hidden;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow);
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s,
+    transform 0.1s;
+}
+.bk-node:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
+}
+.bk-node.bk-on {
+  border-color: color-mix(in srgb, var(--live) 50%, var(--border));
+}
+
+.bk-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  font-size: 0.62rem;
+  line-height: 1.25;
+  color: var(--text-3);
+  margin-bottom: 1px;
+}
+.bk-n {
+  flex: none;
+  font-weight: 700;
+  background: var(--chip-bg);
+  border-radius: 4px;
+  padding: 0 4px;
+}
+.bk-when {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.6rem;
+  letter-spacing: -0.01em;
+}
+.bk-live-tag {
+  flex: none;
+  background: var(--live);
+  color: #fff;
+  font-weight: 750;
+  border-radius: 999px;
+  padding: 0 7px;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.bk-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  line-height: 1.25;
+}
+/* names may wrap to two lines — the node grows instead of scrolling */
+.bk-nm {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow-wrap: anywhere;
+}
+.bk-tbd {
+  color: var(--text-3);
+  font-weight: 500;
+  font-size: 0.7rem;
+  /* placeholders ("2nd of group K", "Winner M74") always show in full: as many
+     lines as needed, breaking anywhere, never clamped to an ellipsis */
+  display: block;
+  overflow: visible;
+  -webkit-line-clamp: none;
+  line-clamp: none;
+}
+.bk-score {
+  flex: none;
+  font-weight: 800;
+  font-size: 0.82rem;
+}
+.bk-pen {
+  color: var(--text-3);
+  font-weight: 600;
+}
+.bk-win .bk-nm,
+.bk-win .bk-score {
+  font-weight: 800;
+}
+.bk-lose .bk-nm,
+.bk-lose .bk-score {
+  color: var(--text-3);
+  font-weight: 500;
+}
+
+.bk-ghost {
+  width: 100%;
+  height: var(--bk-node-min);
+  border: 1.5px dashed var(--border);
+  border-radius: var(--r-md);
+}
+
+/* ---- centre column: champion · final · third place ---- */
+.bk-cell.bk-center {
+  display: grid;
+  grid-template-rows: 1fr auto 1fr; /* keeps the final at the exact vertical centre */
+  align-items: center;
+  row-gap: 12px;
+}
+.bk-center-top {
+  align-self: end;
+  min-width: 0;
+}
+.bk-center-mid {
+  min-width: 0;
+}
+.bk-center-bottom {
+  align-self: start;
+  min-width: 0;
+}
+
+.bk-node.bk-big {
+  height: auto;
+  min-height: 126px;
+  gap: 3px;
+  padding: 12px 14px 13px;
+  border-width: 2px;
+  border-color: color-mix(in srgb, var(--gold) 55%, var(--border));
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  background: linear-gradient(
+    168deg,
+    color-mix(in srgb, var(--gold) 10%, var(--bg-elev)),
+    var(--bg-elev) 58%
+  );
+}
+.bk-node.bk-big.bk-on {
+  border-color: color-mix(in srgb, var(--live) 55%, var(--border));
+}
+.bk-final-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 2px;
+}
+.bk-cup {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+.bk-big .bk-meta {
+  justify-content: center;
+  font-size: 0.7rem;
+}
+.bk-big .bk-when {
+  flex: 0 1 auto;
+}
+.bk-big .bk-row {
+  padding: 1px 0;
+}
+.bk-big .bk-nm {
+  font-size: 0.92rem;
+}
+.bk-big .bk-score {
+  font-size: 1rem;
+}
+
+.bk-champion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+  padding: 10px 12px 11px;
+  border-radius: var(--r-lg);
+  border: 1px solid color-mix(in srgb, var(--gold) 55%, var(--border));
+  background: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--gold) 26%, var(--bg-elev)),
+    color-mix(in srgb, var(--gold) 7%, var(--bg-elev))
+  );
+  box-shadow: var(--shadow);
+  min-width: 0;
+}
+.bk-champ-cup {
+  font-size: 1.6rem;
+  line-height: 1.15;
+}
+.bk-champ-label {
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--gold) 70%, var(--text));
+}
+.bk-champion .team-inline {
+  max-width: 100%;
+}
+.bk-champion .team-inline .nm {
+  font-size: 1.02rem;
+}
+
+.bk-third {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+.bk-third-label {
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============ narrow screens: vertical round-by-round list ============ */
+/* desktop: half switcher, compact codes and mobile centre are hidden */
+.bk-half-seg {
+  display: none;
+}
+.bk-code {
+  display: none;
+}
+.bk-mobile-center {
+  display: none;
+}
+
+/* ===== narrow screens: one half of the real tree at a time, no h-scroll ===== */
+@media (max-width: 879.5px) {
+  .bk-half-seg {
+    display: inline-flex;
+    margin-bottom: 10px;
+  }
+  .bk-mhead {
+    display: none;
+  }
+  .bk-page {
+    --bk-gap: 8px;
+    --bk-row-m: 58px;
+  }
+  .bk-grid {
+    column-gap: var(--bk-gap);
+    grid-template-rows: auto repeat(8, minmax(var(--bk-row-m), auto));
+  }
+  /* left view: tracks 1-4 visible, the rest collapse to zero */
+  .bk-grid.bk-m-l {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) 0 0 0 0 0;
+  }
+  .bk-grid.bk-m-l .bk-r,
+  .bk-grid.bk-m-l .bk-head:nth-child(n + 5) {
+    display: none;
+  }
+  /* right view: tracks 6-9 visible (tree converges leftward, mirrored) */
+  .bk-grid.bk-m-r {
+    grid-template-columns: 0 0 0 0 0 repeat(4, minmax(0, 1fr));
+  }
+  .bk-grid.bk-m-r .bk-l,
+  .bk-grid.bk-m-r .bk-head:nth-child(-n + 5) {
+    display: none;
+  }
+  .bk-grid .bk-cell.bk-center {
+    display: none;
+  }
+
+  /* compact nodes: flag + 3-letter code + score */
+  .bk-node {
+    padding: 4px 5px 5px;
+    min-height: 44px;
+    border-radius: 8px;
+  }
+  .bk-meta {
+    display: none;
+  }
+  .bk-node .bk-row {
+    gap: 4px;
+  }
+  .bk-nm {
+    display: none;
+  }
+  .bk-nm.bk-tbd {
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: none;
+    line-clamp: none;
+    font-size: 0.58rem;
+    line-height: 1.15;
+  }
+  .bk-code {
+    display: inline;
+    flex: 1;
+    min-width: 0;
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+  .bk-score {
+    font-size: 0.74rem;
+  }
+  .bk-pen {
+    font-size: 0.6rem;
+  }
+  .bk-head-stage {
+    font-size: 0.66rem;
+  }
+  .bk-head-dates {
+    display: none;
+  }
+  .bk-head {
+    padding-bottom: 8px;
+  }
+
+  /* final / third / champion stacked under the tree */
+  .bk-mobile-center {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 18px;
+  }
+  .bk-mobile-center .bk-node {
+    padding: 9px 12px 10px;
+    min-height: 0;
+  }
+  .bk-mobile-center .bk-meta {
+    display: flex;
+  }
+  .bk-mobile-center .bk-nm {
+    display: -webkit-box;
+    font-size: 0.88rem;
+  }
+  .bk-mobile-center .bk-code {
+    display: none;
+  }
+}
+
+/* very narrow screens: a played/live node also carries a score, leaving no
+   room for the 3-letter code — it shows flag + score only. A scoreless node
+   (not played yet, or postponed) still fits flag + code, so it keeps the code
+   down to the tighter breakpoint below. */
+@media (max-width: 469.5px) {
+  .bk-grid .bk-row:has(.bk-score) .bk-code {
+    display: none;
+  }
+  .bk-grid .bk-row:has(.bk-score) {
+    justify-content: space-between;
+  }
+}
+
+/* below ~330px even a scoreless node has no room for the code → flags only */
+@media (max-width: 329.5px) {
+  .bk-grid .bk-code {
+    display: none;
+  }
+  .bk-grid .bk-row {
+    justify-content: space-between;
+  }
+}

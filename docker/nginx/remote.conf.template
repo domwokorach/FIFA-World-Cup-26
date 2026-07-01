@@ -1,0 +1,21 @@
+# DATA_SOURCE=remote: app shell served locally, /data/ reverse-proxied to the
+# live published data so the container always serves the latest (incl. live
+# scores) without a rebuild. ${REMOTE_DATA_HOST} is filled in by entrypoint.sh.
+server {
+    listen 80;
+    server_name _;
+    root /usr/share/nginx/html;
+    index index.html;
+
+    include /etc/nginx/snippets/common.conf;
+
+    location /data/ {
+        proxy_pass https://${REMOTE_DATA_HOST}/data/;
+        proxy_ssl_server_name on;
+        proxy_set_header Host ${REMOTE_DATA_HOST};
+        proxy_set_header Accept-Encoding "";
+        # let the app's service worker own freshness; don't surface upstream caching
+        proxy_hide_header Cache-Control;
+        add_header Cache-Control "no-cache" always;
+    }
+}

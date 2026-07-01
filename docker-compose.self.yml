@@ -1,0 +1,28 @@
+# Self-hosted data refresh (no dependency on the live site):
+#
+#   docker compose -f docker-compose.yml -f docker-compose.self.yml up -d --build
+#
+# The updater runs scripts/update.mjs on a loop into a shared volume; the web
+# container serves /data/ from that volume instead of proxying the live site.
+# The volume is seeded with the image's baked snapshot on first start, so the
+# site works immediately and is replaced by fresh data after the first run.
+services:
+  web:
+    environment:
+      DATA_SOURCE: self
+    volumes:
+      - wc-data:/usr/share/nginx/html/data
+
+  updater:
+    build:
+      context: .
+      target: updater
+    image: ghcr.io/26worldcup/26worldcup-updater:latest
+    environment:
+      UPDATE_INTERVAL: "900"   # seconds between refreshes (900 = 15 min)
+    volumes:
+      - wc-data:/app/public/data
+    restart: unless-stopped
+
+volumes:
+  wc-data:

@@ -1,0 +1,512 @@
+/* ============ Venues page ============ */
+
+/* ---- map showpiece ---- */
+.vn-map-card {
+  padding: 10px 12px 4px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.vn-map-wrap {
+  margin: 0 auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.vn-svg {
+  display: block;
+  width: 100%;
+  max-height: 460px;
+  min-width: 540px;
+  height: auto;
+  direction: ltr; /* geography: the map and its SVG text labels must never mirror in RTL */
+  overflow: visible; /* edge labels may overhang the land-cropped viewBox */
+}
+
+/* real geography layers (Natural Earth via scripts/genmap.mjs) */
+.vn-ctx {
+  fill: color-mix(in srgb, var(--text-3) 12%, transparent);
+  stroke: color-mix(in srgb, var(--text-3) 22%, transparent);
+  stroke-width: 0.8;
+}
+.vn-country {
+  stroke-width: 1.1;
+  stroke-linejoin: round;
+}
+.vn-us {
+  fill: color-mix(in srgb, var(--accent-2) 13%, var(--bg-elev));
+  stroke: color-mix(in srgb, var(--accent-2) 42%, var(--border-strong));
+}
+.vn-ca {
+  fill: color-mix(in srgb, var(--accent) 11%, var(--bg-elev));
+  stroke: color-mix(in srgb, var(--accent) 38%, var(--border-strong));
+}
+.vn-mx {
+  fill: color-mix(in srgb, var(--accent-3) 13%, var(--bg-elev));
+  stroke: color-mix(in srgb, var(--accent-3) 42%, var(--border-strong));
+}
+.vn-lakes {
+  fill: var(--bg-elev); /* same as the surrounding "sea" so lakes read as water */
+  stroke: color-mix(in srgb, var(--text-3) 30%, transparent);
+  stroke-width: 0.7;
+}
+
+.vn-pin {
+  cursor: pointer;
+  outline: none;
+}
+.vn-pin .vn-halo {
+  opacity: 0.16;
+  transition: opacity 0.15s;
+}
+.vn-pin .vn-core {
+  transition: transform 0.15s;
+}
+.vn-pin:hover .vn-halo,
+.vn-pin:focus-visible .vn-halo {
+  opacity: 0.4;
+}
+.vn-pin:hover .vn-core,
+.vn-pin:focus-visible .vn-core {
+  transform: scale(1.3);
+}
+.vn-lbl {
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 650;
+  fill: var(--text-2);
+  paint-order: stroke;
+  stroke: var(--bg-elev);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  user-select: none;
+}
+
+.vn-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  justify-content: center;
+  border-top: 1px solid var(--border);
+  margin-top: 6px;
+  padding: 8px 4px;
+}
+.vn-leg {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 0;
+  background: transparent;
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 0.84rem;
+  cursor: pointer;
+}
+.vn-leg:hover {
+  background: var(--chip-bg);
+}
+
+.vn-dot {
+  display: inline-block;
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--text) 10%, transparent);
+}
+.vn-dot.lg {
+  width: 12px;
+  height: 12px;
+  margin-top: 6px;
+}
+
+/* ---- country sections ---- */
+.vn-country-sec {
+  scroll-margin-top: calc(var(--hdr-h, 58px) + 12px);
+}
+
+/* ---- venue cards ---- */
+.vn-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  scroll-margin-top: calc(var(--hdr-h, 58px) + 12px);
+}
+.vn-body {
+  flex: 1;
+  padding: 14px 16px 12px;
+}
+.vn-card.vn-hl {
+  animation: vn-flash 1.9s ease both;
+}
+@keyframes vn-flash {
+  0% {
+    border-color: var(--accent-2);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-2) 45%, transparent);
+  }
+  65% {
+    border-color: var(--accent-2);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-2) 22%, transparent);
+  }
+  100% {
+    border-color: var(--border);
+    box-shadow: var(--shadow);
+  }
+}
+
+.vn-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.vn-names {
+  flex: 1;
+  min-width: 0;
+}
+.vn-name {
+  margin: 0;
+  font-size: 1.02rem;
+}
+.vn-fifa {
+  margin-top: 1px;
+}
+
+.vn-city {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+}
+.vn-city svg {
+  flex: none;
+}
+
+.vn-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.vn-climate {
+  margin-top: 10px;
+}
+.vn-temps b {
+  font-weight: 700;
+}
+.vn-rain {
+  margin-top: 2px;
+  font-size: 0.76rem;
+  line-height: 1.4;
+}
+
+/* ---- expandable match list ---- */
+.vn-expand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin: 0;
+  padding: 10px 16px;
+  border: 0;
+  border-top: 1px solid var(--border);
+  background: transparent;
+  font-weight: 650;
+  font-size: 0.84rem;
+  color: var(--text-2);
+  cursor: pointer;
+  text-align: start;
+  transition: background 0.15s;
+}
+.vn-expand:hover {
+  background: var(--bg-sunken);
+  color: var(--text);
+}
+.vn-expand svg {
+  flex: none;
+}
+.vn-caret {
+  margin-inline-start: auto;
+  color: var(--text-3);
+  transform: rotate(180deg);
+  transition: transform 0.2s;
+}
+.vn-caret.open {
+  transform: rotate(-90deg);
+}
+
+.vn-mlist {
+  border-top: 1px solid var(--border);
+}
+
+.vn-mrow {
+  display: grid;
+  grid-template-areas:
+    "when stage"
+    "teams teams";
+  grid-template-columns: 1fr auto;
+  gap: 3px 10px;
+  align-items: center;
+  padding: 9px 16px;
+  border-top: 1px solid var(--border);
+  transition: background 0.12s;
+}
+.vn-mrow:first-child {
+  border-top: 0;
+}
+.vn-mrow:hover {
+  background: var(--bg-sunken);
+}
+.vn-mrow.live {
+  box-shadow: inset 3px 0 0 var(--live);
+}
+[dir="rtl"] .vn-mrow.live {
+  box-shadow: inset -3px 0 0 var(--live); /* live bar hugs the inline-start edge */
+}
+
+.vn-mwhen {
+  grid-area: when;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 3px 7px;
+  color: var(--text-2);
+}
+.vn-mwhen b {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.vn-mteams {
+  grid-area: teams;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.vn-mside {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+.vn-mside.right {
+  justify-content: flex-end;
+  text-align: end;
+}
+.vn-tname {
+  font-weight: 650;
+  font-size: 0.86rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.vn-tname.tbd {
+  color: var(--text-3);
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+.vn-msc {
+  flex: none;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+.vn-mvs {
+  flex: none;
+}
+.vn-mstage {
+  grid-area: stage;
+  justify-self: end;
+}
+
+/* one-line rows on wider screens */
+@media (min-width: 640px) {
+  .vn-mrow {
+    grid-template-areas: "when teams stage";
+    grid-template-columns: 132px minmax(0, 1fr) auto;
+  }
+}
+
+/* ---- team base-camp layer ---- */
+.vn-camp {
+  cursor: pointer;
+  outline: none;
+}
+.vn-camp .vn-camp-bg {
+  fill: var(--bg-elev);
+  stroke: var(--border-strong);
+  stroke-width: 1;
+}
+.vn-camp:hover .vn-camp-bg,
+.vn-camp:focus-visible .vn-camp-bg {
+  stroke: var(--text);
+}
+.vn-camp:hover,
+.vn-camp:focus-visible {
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.3));
+}
+.vn-leg-camps.off {
+  opacity: 0.45;
+}
+.vn-leg-camps .vn-camp-glyph {
+  display: inline-block;
+  flex: none;
+  width: 14px;
+  height: 10px;
+  border-radius: 2px;
+  border: 1px solid var(--text-2);
+  background: linear-gradient(
+    90deg,
+    var(--accent-2) 33%,
+    var(--bg-elev) 33%,
+    var(--bg-elev) 67%,
+    var(--accent) 67%
+  );
+}
+
+/* enwiki link on venue cards */
+
+/* team filter inside the legend row, after the camps toggle */
+.vn-team-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.vn-team-filter select {
+  max-width: 230px;
+  padding: 5px 10px;
+  font-size: 0.84rem;
+}
+.vn-team-hint {
+  white-space: nowrap;
+}
+
+/* dimmed pins/camps when a team filter is active */
+.vn-dim {
+  opacity: 0.16;
+  pointer-events: none;
+}
+.vn-camp-sel .vn-camp-bg {
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+/* deep-linked venue pin: a strong attention pulse for a few seconds */
+.vn-pin.vn-flash .vn-halo {
+  opacity: 0.55;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: vn-pinflash 1s ease-in-out 3;
+}
+.vn-pin.vn-flash .vn-core {
+  transform: scale(1.35);
+}
+@keyframes vn-pinflash {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(2.1);
+    opacity: 0.25;
+  }
+}
+
+/* custom team dropdown (real flag images instead of emoji) */
+.vn-dd {
+  position: relative;
+  min-width: 0;
+}
+.vn-dd-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  max-width: 240px;
+  padding: 5px 10px;
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+}
+.vn-dd-btn:hover {
+  border-color: var(--border-strong);
+}
+.vn-dd-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.vn-dd-list {
+  position: absolute;
+  inset-inline-start: 0;
+  bottom: calc(100% + 6px);
+  z-index: 30;
+  min-width: 220px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 5px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-lg);
+}
+.vn-dd-list [role="option"] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 9px;
+  font: inherit;
+  font-size: 0.84rem;
+  text-align: start;
+  color: var(--text);
+  background: transparent;
+  border: 0;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+}
+.vn-dd-list [role="option"]:hover {
+  background: var(--chip-bg);
+}
+.vn-dd-list [role="option"][aria-selected="true"] {
+  font-weight: 750;
+  color: var(--accent-2);
+}
+.vn-dd-spacer {
+  width: 18px;
+  flex: none;
+}
+
+/* one-tap reset back to "All teams" when a team is selected */
+.vn-dd {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.vn-dd.has-sel .vn-dd-btn {
+  border-color: var(--accent);
+  font-weight: 700;
+}
+.vn-dd-clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  color: var(--text-2);
+  background: var(--chip-bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.vn-dd-clear:hover {
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+}
