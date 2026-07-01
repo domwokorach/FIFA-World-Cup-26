@@ -55485,12 +55485,25 @@
      "type": 2,
      "period": 5,
      "sec": 2434
+    },
+    {
+     "player": "401444",
+     "minute": "89'",
+     "type": 2,
+     "period": 5,
+     "sec": 2592
     }
    ],
    "bookings": [
     {
      "player": "448360",
      "minute": "64'",
+     "card": 1,
+     "period": 5
+    },
+    {
+     "player": null,
+     "minute": "90'",
      "card": 1,
      "period": 5
     }
@@ -55854,8 +55867,8 @@
     }
    ]
   },
-  "matchTime": "88'",
-  "period": 5,
+  "matchTime": null,
+  "period": 17,
   "final": false,
   "secTried": true
  }
