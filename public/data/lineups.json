@@ -55174,9 +55174,31 @@
   "final": true,
   "secTried": true
  },
- "400021525": {
+ "400021524": {
   "home": {
    "tactics": null,
+   "xi": [],
+   "subs": [],
+   "goals": [],
+   "bookings": [],
+   "substitutions": []
+  },
+  "away": {
+   "tactics": null,
+   "xi": [],
+   "subs": [],
+   "goals": [],
+   "bookings": [],
+   "substitutions": []
+  },
+  "matchTime": "0'",
+  "period": 0,
+  "final": false,
+  "secTried": true
+ },
+ "400021525": {
+  "home": {
+   "tactics": "4-2-3-1",
    "xi": [
     {
      "id": "358106",
@@ -55457,11 +55479,43 @@
     }
    ],
    "goals": [],
-   "bookings": [],
-   "substitutions": []
+   "bookings": [
+    {
+     "player": "448360",
+     "minute": "64'",
+     "card": 1,
+     "period": 5
+    }
+   ],
+   "substitutions": [
+    {
+     "off": "448362",
+     "on": "358112",
+     "minute": "",
+     "period": 4
+    },
+    {
+     "off": "448341",
+     "on": "448377",
+     "minute": "56'",
+     "period": 5
+    },
+    {
+     "off": "358120",
+     "on": "495349",
+     "minute": "56'",
+     "period": 5
+    },
+    {
+     "off": "448343",
+     "on": "497902",
+     "minute": "63'",
+     "period": 5
+    }
+   ]
   },
   "away": {
-   "tactics": null,
+   "tactics": "4-3-3",
    "xi": [
     {
      "id": "448821",
@@ -55741,12 +55795,53 @@
      "y": null
     }
    ],
-   "goals": [],
-   "bookings": [],
-   "substitutions": []
+   "goals": [
+    {
+     "player": "486130",
+     "minute": "24'",
+     "type": 2,
+     "period": 3,
+     "sec": 1440
+    },
+    {
+     "player": "401889",
+     "minute": "51'",
+     "type": 2,
+     "period": 5,
+     "sec": 339
+    }
+   ],
+   "bookings": [
+    {
+     "player": "464842",
+     "minute": "67'",
+     "card": 1,
+     "period": 5
+    }
+   ],
+   "substitutions": [
+    {
+     "off": "431788",
+     "on": "464842",
+     "minute": "66'",
+     "period": 5
+    },
+    {
+     "off": "448815",
+     "on": "496358",
+     "minute": "73'",
+     "period": 5
+    },
+    {
+     "off": "486130",
+     "on": "418798",
+     "minute": "73'",
+     "period": 5
+    }
+   ]
   },
-  "matchTime": "0'",
-  "period": 0,
+  "matchTime": "74'",
+  "period": 5,
   "final": false,
   "secTried": true
  }

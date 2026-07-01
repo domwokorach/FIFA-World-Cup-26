@@ -5743,22 +5743,22 @@
    "group": null,
    "date": "2026-07-01T20:00:00Z",
    "venueId": "400216606",
-   "status": "scheduled",
-   "time": "0'",
+   "status": "live",
+   "time": "73'",
    "home": {
     "code": "BEL",
-    "score": null,
+    "score": 0,
     "pen": null
    },
    "away": {
     "code": "SEN",
-    "score": null,
+    "score": 2,
     "pen": null
    },
    "phA": "1G",
    "phB": "3AEHIJ",
    "winner": null,
-   "attendance": null,
+   "attendance": 66925,
    "officials": [
     {
      "id": "400191",
