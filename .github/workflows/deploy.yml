@@ -1,10 +1,10 @@
-# Builds and publishes the site to GitHub Pages on every push to main.
+# Builds and publishes the site to GitHub Pages on every push to master.
 # (Repo Settings → Pages → Source must be set to "GitHub Actions".)
 name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [master]
     # docs and pipeline-only changes don't alter the built site — skip the deploy
     # (a push deploys unless EVERY changed file matches one of these)
     paths-ignore:
