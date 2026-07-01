@@ -1,7 +1,7 @@
 name: Publish Docker images
 
 # Manual button (workflow_dispatch) + automatic on version tags (vX.Y.Z).
-# Deliberately NOT on push-to-main: update-data.yml commits to main every ~15 min
+# Deliberately NOT on push-to-master: update-data.yml commits to master every ~15 min
 # during the tournament, and the images carry no data, so that would be pure waste.
 on:
   workflow_dispatch:
