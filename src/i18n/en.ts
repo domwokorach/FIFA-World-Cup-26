@@ -1,11 +1,11 @@
 import type { Dict } from './strings'
 
 const en: Dict = {
-  appName: '2026 World Cup',
+  appName: 'FIFA World Cup 26',
   appSub: 'United States · Canada · Mexico',
-  appFullName: '2026 World Cup Open Source Companion',
+  appFullName: 'FIFA World Cup 26 Open Source Companion',
   metaDesc:
-    '2026 World Cup: schedule, groups, bracket, teams, venues, weather, where to watch, win probabilities and tournament forecast, in 23 languages. Unofficial open-source PWA',
+    'FIFA World Cup 26: schedule, groups, bracket, teams, venues, weather, where to watch, win probabilities and tournament forecast, in 23 languages. Unofficial open-source PWA',
   // nav
   navHome: 'Home',
   navMatches: 'Matches',
@@ -304,8 +304,8 @@ const en: Dict = {
   matchesPlayed: 'Matches played',
   apps: 'Apps',
   appearances: 'Appearances',
-  appsWc: 'Appearances at the 2026 World Cup',
-  goalsWc: 'Goals at the 2026 World Cup',
+  appsWc: 'Appearances at the FIFA World Cup 26',
+  goalsWc: 'Goals at the FIFA World Cup 26',
   appsCareer: 'Career appearances for the national team',
   goalsCareer: 'Career goals for the national team',
   statGoals: 'Goals scored',

@@ -11,10 +11,10 @@ export default defineConfig({
       includeAssets: ['favicon.svg', 'icons/apple-touch-icon.png'],
       manifest: {
         id: './',
-        name: '2026 World Cup Open Source Companion',
+        name: 'FIFA World Cup 26 Open Source Companion',
         short_name: '2026 WC',
         description:
-          '2026 World Cup: schedule, groups, bracket, teams, venues, weather, where to watch, win probabilities and tournament forecast, in 23 languages. Unofficial open-source PWA',
+          'FIFA World Cup 26: schedule, groups, bracket, teams, venues, weather, where to watch, win probabilities and tournament forecast, in 23 languages. Unofficial open-source PWA',
         start_url: './',
         scope: './',
         display: 'standalone',

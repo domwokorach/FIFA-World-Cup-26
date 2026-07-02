@@ -507,10 +507,10 @@ export function buildIcs(
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//wc2026-app//2026 World Cup//EN',
+    'PRODID:-//wc2026-app//FIFA World Cup 26//EN',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
-    'X-WR-CALNAME:2026 World Cup',
+    'X-WR-CALNAME:FIFA World Cup 26',
   ]
   const fmt = (ms: number) => {
     const d = new Date(ms)
