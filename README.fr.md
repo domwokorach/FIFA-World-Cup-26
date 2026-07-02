@@ -157,7 +157,7 @@ docker run -d -p 8080:80 ghcr.io/26worldcup/26worldcup:latest
 **1.2 Construire la vôtre** (modifications locales, ou avant qu'une image ne soit publiée) :
 
 ```bash
-git clone https://github.com/26worldcup/26worldcup.github.io.git
+git clone https://github.com/domwokorach/FIFA-World-Cup-26.git
 cd 26worldcup.github.io
 docker build -t ghcr.io/26worldcup/26worldcup:latest .          # build l'image locale
 docker run -d -p 8080:80 ghcr.io/26worldcup/26worldcup:latest   # même tag → exécute votre build, sans pull
@@ -182,7 +182,7 @@ docker run -d -e UPDATE_INTERVAL=900 --restart unless-stopped \
 **2.2 Construire les vôtres** (Compose construit à la fois l'image web et celle de mise à jour) :
 
 ```bash
-git clone https://github.com/26worldcup/26worldcup.github.io.git
+git clone https://github.com/domwokorach/FIFA-World-Cup-26.git
 cd 26worldcup.github.io
 docker compose -f docker-compose.yml -f docker-compose.self.yml up -d --build
 ```

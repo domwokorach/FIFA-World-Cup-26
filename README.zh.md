@@ -157,7 +157,7 @@ docker run -d -p 8080:80 ghcr.io/26worldcup/26worldcup:latest
 **1.2 自行构建**（有本地改动，或在镜像发布之前）：
 
 ```bash
-git clone https://github.com/26worldcup/26worldcup.github.io.git
+git clone https://github.com/domwokorach/FIFA-World-Cup-26.git
 cd 26worldcup.github.io
 docker build -t ghcr.io/26worldcup/26worldcup:latest .          # 构建本地镜像
 docker run -d -p 8080:80 ghcr.io/26worldcup/26worldcup:latest   # 相同标签 → 运行你的构建，不会拉取
@@ -182,7 +182,7 @@ docker run -d -e UPDATE_INTERVAL=900 --restart unless-stopped \
 **2.2 自行构建**（Compose 会同时构建 Web 镜像和更新器镜像）：
 
 ```bash
-git clone https://github.com/26worldcup/26worldcup.github.io.git
+git clone https://github.com/domwokorach/FIFA-World-Cup-26.git
 cd 26worldcup.github.io
 docker compose -f docker-compose.yml -f docker-compose.self.yml up -d --build
 ```

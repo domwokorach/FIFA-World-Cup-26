@@ -182,7 +182,7 @@ export default function Layout() {
           </nav>
           <a
             className="gh-link"
-            href="https://github.com/26worldcup/26worldcup.github.io"
+            href="https://github.com/domwokorach/FIFA-World-Cup-26"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
@@ -206,20 +206,20 @@ export default function Layout() {
           <Freshness />
         </div>
         <div className="shell-footer-links">
-          <a href="https://github.com/26worldcup/26worldcup.github.io" target="_blank" rel="noreferrer">
+          <a href="https://github.com/domwokorach/FIFA-World-Cup-26" target="_blank" rel="noreferrer">
             GitHub
           </a>
           <span aria-hidden="true">·</span>
           <span>
             {byPre}
-            <a href="https://github.com/tomchen" target="_blank" rel="noreferrer">
-              Tom Chen
+            <a href="https://github.com/domwokorach" target="_blank" rel="noreferrer">
+              Dominic
             </a>
             {byPost}
           </span>
           <span aria-hidden="true">·</span>
           <a
-            href="https://github.com/26worldcup/26worldcup.github.io/blob/main/COPYRIGHT.md"
+            href="https://github.com/domwokorach/FIFA-World-Cup-26/blob/main/COPYRIGHT.md"
             target="_blank"
             rel="noreferrer"
           >

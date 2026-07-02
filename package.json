@@ -28,11 +28,11 @@
   ],
   "homepage": "https://26worldcup.github.io",
   "bugs": {
-    "url": "https://github.com/26worldcup/26worldcup.github.io/issues"
+    "url": "https://github.com/domwokorach/FIFA-World-Cup-26/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/26worldcup/26worldcup.github.io.git"
+    "url": "git+https://github.com/domwokorach/FIFA-World-Cup-26.git"
   },
   "license": "MIT",
   "author": "Tom Chen (tomchen.org)",
