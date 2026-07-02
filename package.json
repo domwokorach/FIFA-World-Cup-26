@@ -1,5 +1,5 @@
 {
-  "name": "26worldcup",
+  "name": "FIFA-World-Cup-26",
   "version": "1.0.0",
   "description": "FIFA World Cup 26 Open Source Companion: schedule, groups, bracket, teams, venues, weather, where to watch, win probabilities and tournament forecast, in 23 languages. Unofficial PWA",
   "keywords": [
@@ -35,7 +35,7 @@
     "url": "git+https://github.com/domwokorach/FIFA-World-Cup-26.git"
   },
   "license": "MIT",
-  "author": "Tom Chen (tomchen.org)",
+  "author": "Dominic Wokorach-O",
   "type": "module",
   "engines": {
     "bun": ">=1.1"
