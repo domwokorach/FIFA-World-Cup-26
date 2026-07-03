@@ -109,7 +109,16 @@ jobs:
           git commit -m "data: scheduled update $(date -u +%F)"
           # master may have moved while the update ran — rebase and retry up to 3 times
           for attempt in 1 2 3; do
-            git pull --rebase origin master || { echo "rebase failed (attempt $attempt)"; sleep 10; continue; }
+            if ! git pull --rebase origin master; then
+              if [ -d .git/rebase-merge ] || [ -d .git/rebase-apply ]; then
+                git rebase --abort || true
+                echo "rebase conflict (attempt $attempt), likely concurrent update; skipping push"
+                exit 0
+              fi
+              echo "rebase failed (attempt $attempt)"
+              sleep 10
+              continue
+            fi
             if git push origin master; then
               exit 0
             fi
