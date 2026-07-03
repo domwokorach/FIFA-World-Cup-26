@@ -201,6 +201,14 @@
    "ownGoals": 0
   },
   {
+   "id": "393480",
+   "name": "Breel EMBOLO",
+   "code": "SUI",
+   "no": 7,
+   "goals": 2,
+   "ownGoals": 0
+  },
+  {
    "id": "489518",
    "name": "Crysencio SUMMERVILLE",
    "code": "NED",
@@ -309,14 +317,6 @@
    "name": "Raul JIMENEZ",
    "code": "MEX",
    "no": 9,
-   "goals": 2,
-   "ownGoals": 0
-  },
-  {
-   "id": "379942",
-   "name": "Riyad MAHREZ",
-   "code": "ALG",
-   "no": 7,
    "goals": 2,
    "ownGoals": 0
   }
