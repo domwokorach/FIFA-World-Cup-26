@@ -5920,16 +5920,16 @@
    "group": null,
    "date": "2026-07-03T03:00:00Z",
    "venueId": "400248370",
-   "status": "scheduled",
-   "time": "0'",
+   "status": "live",
+   "time": "2'",
    "home": {
     "code": "SUI",
-    "score": null,
+    "score": 0,
     "pen": null
    },
    "away": {
     "code": "ALG",
-    "score": null,
+    "score": 0,
     "pen": null
    },
    "phA": "1B",
