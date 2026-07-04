@@ -6660,7 +6660,11 @@
    "status": "scheduled",
    "time": null,
    "home": null,
-   "away": null,
+   "away": {
+    "code": "MAR",
+    "score": null,
+    "pen": null
+   },
    "phA": "W89",
    "phB": "W90",
    "winner": null,
