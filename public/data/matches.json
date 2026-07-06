@@ -6499,15 +6499,15 @@
    "date": "2026-07-06T01:00:00Z",
    "venueId": "400222084",
    "status": "live",
-   "time": "0'",
+   "time": "5'",
    "home": {
     "code": "MEX",
-    "score": null,
+    "score": 0,
     "pen": null
    },
    "away": {
     "code": "ENG",
-    "score": null,
+    "score": 0,
     "pen": null
    },
    "phA": "W79",

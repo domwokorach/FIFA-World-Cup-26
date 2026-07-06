@@ -1,26 +1,26 @@
 {
- "updatedAt": "2026-07-06T00:51:19.394Z",
+ "updatedAt": "2026-07-06T01:05:00.084Z",
  "season": "285023",
  "titleOdds": [
   {
    "c": "ARG",
-   "p": 24.7
+   "p": 25.7
   },
   {
    "c": "FRA",
-   "p": 21.3
+   "p": 21.6
   },
   {
    "c": "ESP",
-   "p": 18.5
+   "p": 17.9
   },
   {
    "c": "ENG",
-   "p": 11
+   "p": 11.1
   },
   {
    "c": "MAR",
-   "p": 5.7
+   "p": 5.8
   }
  ],
  "counts": {
@@ -32,7 +32,6 @@
   "flags": 179
  },
  "errors": [
-  "unknown MatchStatus 13 on match 400021531",
   "geocode New Tecumseth: no usable result — not cached, will retry next run"
  ],
  "sources": [
