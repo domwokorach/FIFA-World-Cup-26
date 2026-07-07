@@ -6866,16 +6866,16 @@
    "group": null,
    "date": "2026-07-07T20:00:00Z",
    "venueId": "400248370",
-   "status": "scheduled",
-   "time": "0'",
+   "status": "live",
+   "time": "1'",
    "home": {
     "code": "SUI",
-    "score": null,
+    "score": 0,
     "pen": null
    },
    "away": {
     "code": "COL",
-    "score": null,
+    "score": 0,
     "pen": null
    },
    "phA": "W85",
