@@ -65803,7 +65803,20 @@
     }
    ],
    "goals": [],
-   "bookings": [],
+   "bookings": [
+    {
+     "player": "311558",
+     "minute": "51'",
+     "card": 1,
+     "period": 5
+    },
+    {
+     "player": "401448",
+     "minute": "59'",
+     "card": 1,
+     "period": 5
+    }
+   ],
    "substitutions": [
     {
      "off": "448120",
@@ -66106,10 +66119,17 @@
     }
    ],
    "goals": [],
-   "bookings": [],
+   "bookings": [
+    {
+     "player": "428905",
+     "minute": "60'",
+     "card": 1,
+     "period": 5
+    }
+   ],
    "substitutions": []
   },
-  "matchTime": "50'",
+  "matchTime": "64'",
   "period": 5,
   "final": false,
   "secTried": true
