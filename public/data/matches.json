@@ -7084,15 +7084,15 @@
    "date": "2026-07-10T19:00:00Z",
    "venueId": "400017978",
    "status": "live",
-   "time": "29'",
+   "time": "43'",
    "home": {
     "code": "ESP",
-    "score": 0,
+    "score": 1,
     "pen": null
    },
    "away": {
     "code": "BEL",
-    "score": 0,
+    "score": 1,
     "pen": null
    },
    "phA": "W93",
