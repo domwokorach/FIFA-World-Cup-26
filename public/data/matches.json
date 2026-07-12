@@ -7320,7 +7320,11 @@
    "venueId": "400098290",
    "status": "scheduled",
    "time": null,
-   "home": null,
+   "home": {
+    "code": "ENG",
+    "score": null,
+    "pen": null
+   },
    "away": null,
    "phA": "W99",
    "phB": "W100",
