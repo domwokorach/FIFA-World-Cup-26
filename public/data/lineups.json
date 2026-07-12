@@ -67515,8 +67515,8 @@
    "bookings": [],
    "substitutions": []
   },
-  "matchTime": "0'",
-  "period": 0,
+  "matchTime": "8'",
+  "period": 3,
   "final": false,
   "secTried": true
  },
